@@ -64,3 +64,7 @@ plato-manus = "0.1"
 ## License
 
 MIT
+
+## Documentation
+
+📚 [OpenConstruct Docs](https://github.com/SuperInstance/openconstruct-docs)
