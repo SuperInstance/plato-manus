@@ -1,18 +1,18 @@
-# plato-manus
+# plato-manus — The Hands Module
 
-The "hands" module — file operations, API calls, and device control translated into a text-based interface for agents.
+File operations, API calls, and device control translated into a text-based interface for agents. All actions are policy-checked before execution.
 
-## Overview
+**Part of the [Plato](https://github.com/SuperInstance/plato-shell) ecosystem.**
 
-Plato-Manus provides a text-based interface for AI agents to interact with the world through:
+## What This Gives You
 
-- **FileHand** — File system operations (`ls`, `cat`, `write`, `mkdir`, `rm`) with policy-checked paths
-- **ApiHand** — HTTP API calls (`get`, `post`, `put`, `delete`) with domain allowlists
-- **DeviceHand** — Device control abstraction (`on`, `off`, `status`, `configure`)
-- **HandPolicy** — YAML-based access control for paths, domains, and devices
-- **ActionResult** — Structured results that agents can parse
+- **FileHand** — `ls`, `cat`, `write`, `mkdir`, `rm` with path-based access control
+- **ApiHand** — `get`, `post`, `put`, `delete` with domain allowlists
+- **DeviceHand** — `on`, `off`, `status`, `configure` for IoT and hardware
+- **YAML policy** — configure allowed/denied paths, domains, and devices
+- **ActionResult** — structured results that agents can parse
 
-## Usage
+## Quick Start
 
 ```rust
 use plato_manus::{Manus, HandPolicy, DeviceState};
@@ -34,9 +34,7 @@ let status = manus.device_status("light")?;
 let result = manus.execute("read /tmp/hello.txt");
 ```
 
-## Policy
-
-All operations are policy-checked. Configure allowed/denied paths, domains, and devices:
+## Policy Configuration
 
 ```yaml
 allowed_paths:
@@ -47,15 +45,22 @@ denied_paths:
   - /root
 allowed_domains:
   - api.example.com
-denied_domains:
-  - evil.example.com
 allowed_devices:
   - light
   - thermostat
 ```
 
+## How It Fits
+
+The "hands" of [plato-shell](https://github.com/SuperInstance/plato-shell). When an agent needs to interact with the real world — read a file, call an API, turn on a light — manus handles it with policy guardrails. Used alongside [plato-policy](https://github.com/SuperInstance/plato-policy) for access control.
+
+## Installation
+
+```toml
+[dependencies]
+plato-manus = "0.1"
+```
+
 ## License
 
 MIT
-
-Part of the [SuperInstance OpenConstruct](https://github.com/SuperInstance/OpenConstruct) ecosystem.
